@@ -520,7 +520,7 @@ Resources:
   ElkSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupDescription: Allow kibana from public and logstash from internal ELBs
+      GroupDescription: Allow kibana from public and logstash from internal ELBs and UDP LB
       VpcId: !Ref VpcId
       SecurityGroupIngress:
       - IpProtocol: tcp
@@ -535,6 +535,10 @@ Resources:
         FromPort: '22'
         ToPort: '22'
         CidrIp: !Ref AllowedSshCidr
+      - IpProtocol: udp
+        FromPort: '9000'
+        ToPort: '9000'
+        CidrIp: 10.225.9.0/24
   ElkSecurityGroupIngress:
     Type: AWS::EC2::SecurityGroupIngress
     Properties:
